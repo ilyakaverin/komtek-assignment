@@ -1,28 +1,16 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "@/components/HelloWorld.vue";
+import { useEntitiesStore } from "@/stores/patients";
 </script>
 
 <template>
-  <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="125"
-      height="125"
-    />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
+  <header class="wrapper">
+    <nav>
+      <RouterLink to="/">На главную</RouterLink>
+      <RouterLink to="/add">Добавить пациента</RouterLink>
+    </nav>
+    <h2></h2>
   </header>
-
   <RouterView />
 </template>
 
@@ -30,7 +18,7 @@ import HelloWorld from "@/components/HelloWorld.vue";
 @import "@/assets/base.css";
 
 #app {
-  max-width: 1280px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 2rem;
 
@@ -79,6 +67,7 @@ nav a {
   display: inline-block;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
+  padding: 15px;
 }
 
 nav a:first-of-type {
