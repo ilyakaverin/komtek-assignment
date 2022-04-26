@@ -9,24 +9,28 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import("../components/Main.vue"),
+      component: () => import("../views/Main.vue"),
     },
     {
       path: "/add",
       name: "add",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../components/AddPatient.vue"),
+      component: () => import("../views/AddPatient.vue"),
     },
     {
       path: "/add/:id",
-      name: "patient",
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import("../components/AddPatient.vue"),
-    }
+      name: "edit",
+      component: () => import("../views/AddPatient.vue"),
+    },
+    {
+      path: "/about/:id",
+      name: "about",
+      component: () => import("../views/AboutPatient.vue"),
+    },
+    {
+      path: "/createConsultation/:id",
+      name: "createConsultation",
+      component: () => import("../views/CreateConsultation.vue"),
+    },
   ],
 });
 

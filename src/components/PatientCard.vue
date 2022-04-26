@@ -1,10 +1,17 @@
 <script>
 import { useEntitiesStore } from "@/stores/patients";
-import router from '../router';
+import router from "../router";
+import Button from "@/components/Button.vue";
 export default {
+  name: "PatientCard",
+  components: {
+    Button,
+  },
   props: {
     name: String,
     surname: String,
+    secondName: String,
+    snils: String,
     id: String,
   },
   setup() {
@@ -12,42 +19,33 @@ export default {
     return { store };
   },
   methods: {
-      moveToAboutPage() {
-          router.push({name: 'patient', params: {id: this.id}})
-      }
-  }
+    moveToEditPage() {
+      router.push({ name: "edit", params: { id: this.id } });
+    },
+    moveToAboutPage() {
+      router.push({ name: "about", params: { id: this.id } });
+    },
+  },
 };
 </script>
 
 <template>
-  <div class="containerCard">
-    <h2>
-      {{ name }}
-    </h2>
-    <h3>
-      {{ surname }}
-    </h3>
-    <h4>{{ id }}</h4>
-    <button @click="moveToAboutPage">О пациенте</button>
-    <button @click="this.store.deletePatient(id)">Удалить</button>
-  </div>
+  <section class="containerCard">
+    <h4>{{ `${name} ${secondName} ${surname}` }}</h4>
+    <span>{{ snils }}</span>
+    <Button @click="moveToAboutPage" name="О Пациенте" />
+    <Button @click="moveToEditPage" name="Редактировать" />
+    <Button @click="this.store.deletePatient(id)" name="Удалить" />
+  </section>
 </template>
 
 <style scoped>
 .containerCard {
-  border: 1px solid black;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: flex-start;
 }
-
-h2 {
-  color: red;
-}
-h2 {
-  color: palegreen;
-}
 h4 {
-  color: black;
+  flex-basis: 20%;
 }
 </style>
