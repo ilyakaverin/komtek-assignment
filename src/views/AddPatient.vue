@@ -106,7 +106,6 @@ export default {
         type="text"
         placeholder="Фамилия"
         v-model="surname"
-        required
       />
       <span class="error" v-if="this.errors.includes('surname')">Ошибка</span>
       <input

@@ -9,19 +9,13 @@ export class Patient {
   @MinLength(1)
   @MaxLength(20)
   public surname: string;
-  @MinLength(1)
-  @MaxLength(20)
   public secondName: string;
   @MinLength(1)
   public birthdate: string;
   public gender: string;
   @IsCorrectSnils(null, { message: "Некорректный снилс" })
   public snils: string;
-  @Min(1)
-  @Max(250)
   public weight: string;
-  @Min(1)
-  @Max(250)
   public height: string;
 
   constructor(
