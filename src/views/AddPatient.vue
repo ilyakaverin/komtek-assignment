@@ -35,7 +35,7 @@ export default {
     };
   },
   computed: <any>{
-    calc_age(): number {
+    calc_age() {
       return this.birthdate?.length > 0 ? calculate_age(this.birthdate) : 0;
     },
   },

@@ -8,7 +8,6 @@ module.exports = {
     "eslint:recommended",
     "@vue/eslint-config-typescript/recommended",
     "@vue/eslint-config-prettier",
-    "vue/vue3-*",
   ],
   env: {
     "vue/setup-compiler-macros": true,

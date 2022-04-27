@@ -1,8 +1,8 @@
 import { registerDecorator } from "class-validator";
 import { isSnilsValid } from "@/service.ts";
 
-export function IsCorrectSnils(_: any, validationOptions?: any) {
-  return function (object: Object, propertyName: string) {
+export function IsCorrectSnils(_: string | null, validationOptions?: any) {
+  return function (object: object, propertyName: string) {
     registerDecorator({
       name: "isCorrectSnils",
       target: object.constructor,

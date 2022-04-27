@@ -3,14 +3,11 @@ import { useEntitiesStore } from "@/stores/patients";
 import { useConsultationsStore } from "@/stores/consultations";
 import { useRoute } from "vue-router";
 import { calculate_age } from "@/service";
-import RadioInput from "@/components/RadioInput.vue";
 import Button from "@/components/Button.vue";
 import ConsultationCard from "@/components/ConsultationCard.vue";
-import { Consultation } from "../classes";
-import { nanoid } from "nanoid";
 import router from "../router";
 export default {
-  name: "About",
+  name: "About Patient",
   setup() {
     const store = useEntitiesStore();
     const consultStore = useConsultationsStore();
@@ -26,7 +23,6 @@ export default {
     return { store, current, consultStore, id };
   },
   components: {
-    RadioInput,
     Button,
     ConsultationCard,
   },

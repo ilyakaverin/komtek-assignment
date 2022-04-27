@@ -18,7 +18,7 @@ export default {
     };
   },
   computed: <any>{
-    filteredList(): void {
+    filteredList() {
       this.search = String(this.search);
       return this.store.patients.filter((patient: Patient) => {
         return patient
