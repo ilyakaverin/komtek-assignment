@@ -1,32 +1,55 @@
 <template>
   <div class="radio">
     <input
-      :disabled="this.isDisabled"
+      :disabled="this.busy.length > 0 && this.busy[0].consultId !== consultId"
       type="radio"
       :id="id"
       :name="name"
       :value="value"
+      :checked="this.busy[0] && this.busy[0].consultId === consultId"
       @input="$emit('update:time', $event.target.value)"
     />
-    <label :class="{ disabled: isDisabled }" :for="this.id">{{ value }}</label>
+    <label
+      :class="{
+        disabled: this.busy.length > 0 && this.busy[0].consultId !== consultId,
+      }"
+      :for="this.id"
+      >{{ value }}</label
+    >
   </div>
 </template>
 
 <script>
+import { useConsultationsStore } from "../stores/consultations";
+
 export default {
   name: "RadioInput",
   props: {
     id: String,
     name: String,
     value: String,
+    date: String,
+    consultId: String,
+  },
+  setup() {
+    const store = useConsultationsStore();
+    return { store };
   },
   data() {
     return {
       time: this.value,
-      isDisabled: false,
+      busy: [],
+      pickedDate: this.date,
     };
   },
+  computed: {},
   methods: {},
+  mounted() {
+    this.busy = this.store.consultations.filter(
+      (consultation) =>
+        consultation.time === this.time && consultation.date === this.date
+    );
+  },
 };
 </script>
 

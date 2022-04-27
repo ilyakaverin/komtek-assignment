@@ -43,9 +43,21 @@ export default {
 .containerCard {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  vertical-align: middle;
 }
 h4 {
   flex-basis: 20%;
+  align-self: center;
+}
+span {
+  flex-basis: 20%;
+  align-self: center;
+}
+@media (max-width: 414px) {
+  .containerCard {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
 }
 </style>

@@ -1,12 +1,14 @@
 <script>
 import Button from "@/components/Button.vue";
 import { useConsultationsStore } from "../stores/consultations";
+import router from "../router";
 
 export default {
   props: {
     date: String,
     time: String,
-    consultid: String,
+    consultId: String,
+    userid: String,
   },
   setup() {
     const consultStore = useConsultationsStore();
@@ -16,7 +18,14 @@ export default {
   components: {
     Button,
   },
-  methods: {},
+  methods: {
+    moveToConsultation() {
+      router.push({
+        name: "editConsultation",
+        params: { id: this.userid, consultId: this.consultId },
+      });
+    },
+  },
 };
 </script>
 
@@ -25,9 +34,10 @@ export default {
     <span>Время: {{ date }}</span>
     <span>Дата: {{ time }}</span>
     <Button
-      @click="this.consultStore.deleteConsultation(consultid)"
+      @click="this.consultStore.deleteConsultation(consultId)"
       name="Удалить"
     />
+    <Button @click="moveToConsultation" name="Редактировать" />
   </section>
 </template>
 
@@ -36,8 +46,7 @@ export default {
   display: flex;
   flex-direction: column;
   border: 3px solid black;
-  width: 100%;
-  gap:1rem;
-  padding:2rem
+  gap: 1rem;
+  padding: 2rem;
 }
 </style>

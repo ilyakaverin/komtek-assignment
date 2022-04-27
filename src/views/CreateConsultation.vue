@@ -2,17 +2,27 @@
   <div class="createConsultationWrap">
     <form>
       <h3>Выберите дату консультации</h3>
-      <input type="date" name="datepick" :min="currentDate" v-model="date" />
+      <input
+        type="date"
+        name="datepick"
+        :min="currentDate"
+        v-model="date"
+        @click="clear"
+      />
       <div class="timepick">
-        <RadioInput
-          v-for="(timepick, idx) in timepicks"
-          :key="idx"
-          :id="String(idx)"
-          v-model:time="time"
-          name="time"
-          :value="timepick"
-          :for="idx"
-        />
+        <div v-if="this.date" class="innerTimePick">
+          <RadioInput
+            v-for="(timepick, idx) in timepicks"
+            :key="idx"
+            :id="String(idx)"
+            :date="date"
+            v-model:time="time"
+            name="time"
+            :value="timepick"
+            :for="idx"
+            :consultId="this.consultId"
+          />
+        </div>
       </div>
       <h3>Симптомы</h3>
       <textarea
@@ -21,6 +31,7 @@
         id="simptoms"
         cols="30"
         rows="10"
+        placeholder="Type..."
       ></textarea>
     </form>
     <div class="submit-consultation">
@@ -30,7 +41,11 @@
       <span>{{ time }}</span>
       <span class="bold">Симптомы:</span>
       <span>{{ simptoms }}</span>
-      <Button @click="send" name="Записать" v-if="this.time && this.date" />
+      <Button
+        @click="action"
+        :name="this.current === undefined ? 'Записать' : 'Обновить запись'"
+        v-if="this.time && this.date"
+      />
     </div>
   </div>
 </template>
@@ -45,23 +60,25 @@ import { nanoid } from "nanoid";
 import { Consultation } from "../classes";
 
 export default {
-    setup() {
+  setup() {
     const consultStore = useConsultationsStore();
     const route = useRoute();
     const id = route.params.id;
-    
+    const consultId = route.params.consultId;
+    const current = consultStore.consultations.find(
+      (consultation) => consultation.consultId === consultId
+    );
 
-    return { consultStore, id };
-
-    },
+    return { consultStore, id, current, consultId };
+  },
   components: {
     RadioInput,
     Button,
   },
   data() {
     return {
-      date: null,
-      time: null,
+      date: this.current?.date,
+      time: this.current?.time,
       timepicks: [
         "08:00 - 09:00",
         "09:00 - 10:00",
@@ -76,7 +93,7 @@ export default {
         "18:00 - 19:00",
         "19:00 - 20:00",
       ],
-      simptoms: "",
+      simptoms: this.current?.simptoms,
     };
   },
   computed: {
@@ -100,8 +117,29 @@ export default {
       );
       this.consultStore.addConsultation(consultation);
       this.$router.push({ name: "about", params: { id: this.id } });
-      console.log(this.consultStore.show);
-      console.log(this.consultations);
+    },
+    clear() {
+      this.date = null;
+    },
+    update() {
+      const userid = this.id;
+      const date = this.date;
+      const time = this.time;
+      const consultationId = this.consultId;
+      const simptoms = this.simptoms;
+
+      const consultation = new Consultation(
+        consultationId,
+        userid,
+        date,
+        time,
+        simptoms
+      );
+      this.consultStore.updateConsultation(consultation);
+      this.$router.push({ name: "about", params: { id: this.id } });
+    },
+    action() {
+      this.current === undefined ? this.send() : this.update();
     },
   },
 };
@@ -110,9 +148,11 @@ export default {
 <style scoped>
 .createConsultationWrap {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   height: calc(100vh - 150px);
   gap: 1rem;
+  padding: 2rem;
+  justify-content: center;
 }
 h3 {
   text-align: center;
@@ -121,24 +161,26 @@ form {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  flex-basis: 40%;
 }
 .timepick {
+  height: 200px;
+}
+.innerTimePick {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   width: 100%;
   grid-gap: 0.3rem;
-}
-input[type="radio"]:checked:has(label) {
-  box-shadow: 0 0 0 3px orange;
 }
 .submit-consultation {
   display: flex;
   flex-direction: column;
   width: 35%;
   height: 100%;
-  border: 1px solid red;
+  border: 3px solid black;
   align-items: center;
   justify-content: center;
+  border: 2px solid black;
 }
 .submit-consultation span {
   min-height: 25px;
@@ -153,11 +195,13 @@ input[type="radio"]:checked:has(label) {
 input {
   padding: 1rem;
   width: 100%;
+  border: 2px solid black;
 }
 textarea {
   width: 100%;
   border: 2px solid black;
   border-radius: 5px;
   resize: none;
+  padding: 1rem;
 }
 </style>

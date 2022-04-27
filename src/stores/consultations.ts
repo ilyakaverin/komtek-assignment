@@ -5,7 +5,8 @@ export const useConsultationsStore = defineStore({
   id: "Consultations",
   state: () => ({
     consultations: [],
-    current: []
+    current: [],
+    edit: [],
   }),
   getters: {
     show: (state) => state.consultations,
@@ -20,11 +21,21 @@ export const useConsultationsStore = defineStore({
       );
     },
     deleteConsultation(id: string) {
-        this.consultations = this.consultations.filter(
-            (consultation: Consultation) => consultation.consultid !== id
-          );
-        this.current = this.current.filter(
-        (consultation: Consultation) => consultation.consultid !== id
+      this.consultations = this.consultations.filter(
+        (consultation: Consultation) => consultation.consultId !== id
+      );
+      this.current = this.current.filter(
+        (consultation: Consultation) => consultation.consultId !== id
+      );
+    },
+    updateConsultation(consultation_input: Consultation) {
+      this.consultations = this.consultations.map(
+        (consultation: Consultation) => {
+          if (consultation.consultId === consultation_input.consultId) {
+            consultation = consultation_input;
+          }
+          return consultation;
+        }
       );
     },
   },

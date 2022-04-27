@@ -19,6 +19,7 @@ button {
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+  flex-basis: 10%;
 }
 button:hover {
   background: rgba(202, 202, 202, 0.9);

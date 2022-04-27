@@ -6,7 +6,7 @@ import { useEntitiesStore } from "@/stores/patients";
 <template>
   <header class="wrapper">
     <nav>
-      <RouterLink to="/">На главную</RouterLink>
+      <RouterLink to="/">Главная</RouterLink>
       <RouterLink to="/add">Добавить пациента</RouterLink>
     </nav>
     <RouterView />

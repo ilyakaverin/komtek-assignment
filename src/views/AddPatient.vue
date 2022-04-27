@@ -18,9 +18,6 @@ export default {
       }
       return null;
     });
-
-    console.log(current, route.params.id, current);
-
     return { store, current };
   },
   data() {
@@ -43,7 +40,7 @@ export default {
     },
   },
   methods: <any>{
-    log(e: Event): void {
+    add(e: Event): void {
       e.preventDefault();
       const user = new Patient(
         nanoid(),
@@ -56,16 +53,11 @@ export default {
         this.weight,
         this.height
       );
-      console.log(user);
       validate(user).then((errors) => {
-        console.log(user);
         if (errors.length > 0) {
           this.errors = [];
           errors.map((error) => this.errors.push(error.property));
-          console.log(this.errors, "errorszz");
-          console.log(errors);
         } else {
-          console.log(user);
           this.store.addPatient(user);
           this.$router.replace({ name: "home" });
           this.errors = [];
@@ -90,10 +82,7 @@ export default {
         if (errors.length > 0) {
           this.errors = [];
           errors.map((error) => this.errors.push(error.property));
-          console.log(this.errors, "errorszz");
-          console.log(errors);
         } else {
-          console.log(calculate_age(updatedUser.birthdate));
           this.store.updatePatient(updatedUser, this.id);
           this.$router.replace({ name: "home" });
           this.errors = [];
@@ -103,7 +92,7 @@ export default {
     },
     action(e: Event) {
       e.preventDefault();
-      !this.current ? this.log(e) : this.update(e);
+      !this.current ? this.add(e) : this.update(e);
     },
   },
 };
@@ -156,7 +145,7 @@ export default {
       <span class="error" v-if="this.errors.includes('snils')">Ошибка</span>
       <div class="input-group">
         <input
-          v-bind:class="[this.errors.includes('weigth') ? 'danger' : null]"
+          v-bind:class="[this.errors.includes('weight') ? 'danger' : null]"
           type="number"
           placeholder="Вес"
           v-model="weight"
@@ -213,5 +202,9 @@ button {
   padding: 10px;
   border-radius: 5px;
   cursor: pointer;
+}
+.container {
+  max-width: 50%;
+  margin: 0 auto;
 }
 </style>

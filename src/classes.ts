@@ -45,24 +45,27 @@ export class Patient {
     this.weight = weight;
     this.height = height;
   }
+  getSearchString() {
+    return `${this.surname} ${this.name} ${this.secondName} ${this.snils}`;
+  }
 }
 
 export class Consultation {
-  consultid: string;
+  consultId: string;
   userid: string;
   date: string;
   time: string;
   simptoms: string;
 
   constructor(
-    consultid: string,
+    consultId: string,
     userid: string,
     date: string,
     time: string,
     simptoms: string
   ) {
     this.userid = userid;
-    this.consultid = consultid;
+    this.consultId = consultId;
     this.date = date;
     this.time = time;
     this.simptoms = simptoms;

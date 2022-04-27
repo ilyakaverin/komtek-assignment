@@ -23,9 +23,6 @@ export default {
       return null;
     });
     consultStore.filterConsultations(id);
-    console.log(consultStore.current)
-    
-
     return { store, current, consultStore, id };
   },
   components: {
@@ -34,9 +31,9 @@ export default {
     ConsultationCard,
   },
   data() {
-      return {
-          consultations: ''
-      }
+    return {
+      consultations: "",
+    };
   },
   computed: {
     age() {
@@ -75,15 +72,18 @@ export default {
       <span>{{ this.current.height }} см</span>
     </div>
     <Button @click="createConsultation" name="Создать Консультацию" />
-          <div class="consultations-view">
-        <ConsultationCard
-          v-for="consultation in this.consultStore.current"
-          :key="consultation.consultid"
-          :date="consultation.date"
-          :time="consultation.time"
-          :consultid="consultation.consultid"
-        />
-      </div>
+
+    <h3>Консультации</h3>
+    <div class="consultations-view">
+      <ConsultationCard
+        v-for="consultation in this.consultStore.current"
+        :key="consultation.consultId"
+        :date="consultation.date"
+        :time="consultation.time"
+        :consultId="consultation.consultId"
+        :userid="consultation.userid"
+      />
+    </div>
   </div>
 </template>
 
@@ -95,7 +95,7 @@ export default {
   display: flex;
   gap: 1rem;
   align-items: flex-start;
-  height: calc(100vh - 100px);
+  min-height: calc(100vh - 100px);
 }
 
 .userinfo {
@@ -108,10 +108,20 @@ export default {
   padding: 0.5rem;
   border-radius: 5px;
 }
+.consultations-view {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
 .bold {
   font-weight: bold;
 }
 span {
   width: 45%;
+}
+@media (max-width: 414px) {
+  .usercard {
+    flex-direction: column;
+  }
 }
 </style>
