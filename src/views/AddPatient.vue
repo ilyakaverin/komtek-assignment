@@ -22,7 +22,8 @@ export default {
     return { store, current };
   },
   components: {
-    TextInput, Button
+    TextInput,
+    Button,
   },
   data() {
     return {
@@ -105,22 +106,72 @@ export default {
 <template>
   <div class="container">
     <form>
-      <TextInput v-model:surname="surname" inputName="surname" :placeholder="'Фамилия'" :errors="this.errors" type="text" :fieldProp="surname"   />
-      <TextInput v-model:name="name" inputName="name" :placeholder="'Имя'" :errors="this.errors" type="text" :fieldProp="name"   />
-      <TextInput v-model:secondName="secondName" inputName="secondName" :placeholder="'Отчество(не обязательно)'" :errors="this.errors" type="text" :fieldProp="secondName"   />
-      <TextInput v-model:birthdate="birthdate" inputName="birthdate" :placeholder="'Дата рождения'" :errors="this.errors" type="date" :fieldProp="birthdate"   />
+      <TextInput
+        v-model:surname="surname"
+        inputName="surname"
+        :placeholder="'Фамилия'"
+        :errors="this.errors"
+        type="text"
+        :fieldProp="surname"
+      />
+      <TextInput
+        v-model:name="name"
+        inputName="name"
+        :placeholder="'Имя'"
+        :errors="this.errors"
+        type="text"
+        :fieldProp="name"
+      />
+      <TextInput
+        v-model:secondName="secondName"
+        inputName="secondName"
+        :placeholder="'Отчество(не обязательно)'"
+        :errors="this.errors"
+        type="text"
+        :fieldProp="secondName"
+      />
+      <TextInput
+        v-model:birthdate="birthdate"
+        inputName="birthdate"
+        :placeholder="'Дата рождения'"
+        :errors="this.errors"
+        type="date"
+        :fieldProp="birthdate"
+      />
       <span>Пол</span>
       <select name="sex" id="gender" v-model="gender">
         <option value="Male">Мужчина</option>
         <option value="Female">Женщина</option>
       </select>
-      <TextInput v-model:snils="snils" inputName="snils" :placeholder="'СНИЛС'" :errors="this.errors" type="text" :fieldProp="snils"   />
+      <TextInput
+        v-model:snils="snils"
+        inputName="snils"
+        :placeholder="'СНИЛС'"
+        :errors="this.errors"
+        type="text"
+        :fieldProp="snils"
+      />
       <div class="input-group">
-        <TextInput v-model:weight="weight" inputName="weight" :placeholder="'Вес'" :errors="this.errors" :fieldProp="weight"   />
-        <TextInput v-model:height="height" inputName="height" :placeholder="'Рост'" :errors="this.errors" :fieldProp="height"   />
+        <TextInput
+          v-model:weight="weight"
+          inputName="weight"
+          :placeholder="'Вес'"
+          :errors="this.errors"
+          :fieldProp="weight"
+        />
+        <TextInput
+          v-model:height="height"
+          inputName="height"
+          :placeholder="'Рост'"
+          :errors="this.errors"
+          :fieldProp="height"
+        />
         <span class="age">Возраст: {{ calc_age }}</span>
       </div>
-      <Button @click="action" :name="!this.current ? 'Отправить' : 'Обновить'" />
+      <Button
+        @click="action"
+        :name="!this.current ? 'Отправить' : 'Обновить'"
+      />
     </form>
   </div>
 </template>
@@ -146,9 +197,8 @@ form .input-group input {
 }
 form .input-group span {
   flex-basis: 20%;
-  align-self: flex-end
+  align-self: flex-end;
 }
-
 
 .container {
   max-width: 50%;
