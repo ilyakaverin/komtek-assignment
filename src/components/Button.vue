@@ -24,4 +24,7 @@ button {
 button:hover {
   background: rgba(202, 202, 202, 0.9);
 }
+button:active {
+  transform: translateY(4px);
+}
 </style>

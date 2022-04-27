@@ -1,6 +1,7 @@
 <script lang="ts">
 import { calculate_age } from "@/service";
 import Button from "@/components/Button.vue";
+import TextInput from "@/components/TextInput.vue";
 import { Patient } from "@/classes";
 import { useEntitiesStore } from "@/stores/patients";
 import { nanoid } from "nanoid";
@@ -19,6 +20,9 @@ export default {
       return null;
     });
     return { store, current };
+  },
+  components: {
+    TextInput, Button
   },
   data() {
     return {
@@ -101,67 +105,22 @@ export default {
 <template>
   <div class="container">
     <form>
-      <input
-        v-bind:class="[this.errors.includes('surname') ? 'danger' : null]"
-        type="text"
-        placeholder="Фамилия"
-        v-model="surname"
-      />
-      <span class="error" v-if="this.errors.includes('surname')">Ошибка</span>
-      <input
-        v-bind:class="[this.errors.includes('name') ? 'danger' : null]"
-        type="text"
-        placeholder="Имя"
-        v-model="name"
-      />
-      <span class="error" v-if="this.errors.includes('name')">Ошибка</span>
-      <input
-        v-bind:class="[this.errors.includes('secondName') ? 'danger' : null]"
-        type="text"
-        placeholder="Отчество"
-        v-model="secondName"
-      />
-      <span class="error" v-if="this.errors.includes('secondName')"
-        >Ошибка</span
-      >
-      <input
-        v-bind:class="[this.errors.includes('birthdate') ? 'danger' : null]"
-        type="date"
-        placeholder="Дата рождения"
-        v-model="birthdate"
-      />
-      <span class="error" v-if="this.errors.includes('birthdate')">Ошибка</span>
+      <TextInput v-model:surname="surname" inputName="surname" :placeholder="'Фамилия'" :errors="this.errors" type="text" :fieldProp="surname"   />
+      <TextInput v-model:name="name" inputName="name" :placeholder="'Имя'" :errors="this.errors" type="text" :fieldProp="name"   />
+      <TextInput v-model:secondName="secondName" inputName="secondName" :placeholder="'Отчество(не обязательно)'" :errors="this.errors" type="text" :fieldProp="secondName"   />
+      <TextInput v-model:birthdate="birthdate" inputName="birthdate" :placeholder="'Дата рождения'" :errors="this.errors" type="date" :fieldProp="birthdate"   />
+      <span>Пол</span>
       <select name="sex" id="gender" v-model="gender">
         <option value="Male">Мужчина</option>
         <option value="Female">Женщина</option>
       </select>
-      <input
-        v-bind:class="[this.errors.includes('snils') ? 'danger' : null]"
-        type="text"
-        placeholder="Снилс"
-        v-model="snils"
-      />
-      <span class="error" v-if="this.errors.includes('snils')">Ошибка</span>
+      <TextInput v-model:snils="snils" inputName="snils" :placeholder="'СНИЛС'" :errors="this.errors" type="text" :fieldProp="snils"   />
       <div class="input-group">
-        <input
-          v-bind:class="[this.errors.includes('weight') ? 'danger' : null]"
-          type="number"
-          placeholder="Вес"
-          v-model="weight"
-        />
-        <span class="error" v-if="this.errors.includes('weight')">Ошибка</span>
-        <input
-          v-bind:class="[this.errors.includes('height') ? 'danger' : null]"
-          type="number"
-          placeholder="Рост"
-          v-model="height"
-        />
-        <span class="error" v-if="this.errors.includes('height')">Ошибка</span>
+        <TextInput v-model:weight="weight" inputName="weight" :placeholder="'Вес'" :errors="this.errors" :fieldProp="weight"   />
+        <TextInput v-model:height="height" inputName="height" :placeholder="'Рост'" :errors="this.errors" :fieldProp="height"   />
         <span class="age">Возраст: {{ calc_age }}</span>
       </div>
-      <button @click="action">
-        {{ !this.current ? "Отправить" : "Обновить" }}
-      </button>
+      <Button @click="action" :name="!this.current ? 'Отправить' : 'Обновить'" />
     </form>
   </div>
 </template>
@@ -173,9 +132,9 @@ form {
   gap: 5px;
   width: 100%;
 }
-form input,
 select {
   padding: 10px;
+  border: 2px solid black;
 }
 form .input-group {
   display: flex;
@@ -187,21 +146,10 @@ form .input-group input {
 }
 form .input-group span {
   flex-basis: 20%;
+  align-self: flex-end
 }
-.error {
-  color: red;
-}
-.danger {
-  border: 1px solid red;
-}
-button {
-  border: none;
-  background: blue;
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
+
+
 .container {
   max-width: 50%;
   margin: 0 auto;
