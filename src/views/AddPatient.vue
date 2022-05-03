@@ -137,7 +137,6 @@ export default {
         this.height
       );
       validate(user).then((errors) => {
-        console.log(errors);
         if (errors.length > 0) {
           this.errors = [];
           errors.map((error) => this.errors.push(error));
