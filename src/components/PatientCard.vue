@@ -4,12 +4,11 @@
     <span>{{ snils }}</span>
     <Button @click="moveToAboutPage" name="О Пациенте" />
     <Button @click="moveToEditPage" name="Редактировать" />
-    <Button @click="this.store.deletePatient(id)" name="Удалить" />
+    <Button @click="clicked" name="Удалить" />
   </section>
 </template>
 
 <script>
-import { useEntitiesStore } from "@/stores/patients";
 import router from "../router";
 import Button from "@/components/Button.vue";
 export default {
@@ -24,16 +23,15 @@ export default {
     snils: String,
     id: String,
   },
-  setup() {
-    const store = useEntitiesStore();
-    return { store };
-  },
   methods: {
     moveToEditPage() {
       router.push({ name: "edit", params: { id: this.id } });
     },
     moveToAboutPage() {
       router.push({ name: "about", params: { id: this.id } });
+    },
+    clicked(event) {
+      this.$emit("customChange", this.id);
     },
   },
 };

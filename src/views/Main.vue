@@ -17,6 +17,7 @@
       :secondName="patient.secondName"
       :snils="patient.snils"
       :id="patient.id"
+      @custom-change="deletePatient"
     />
   </div>
 </template>
@@ -49,6 +50,11 @@ export default {
           .toLowerCase()
           .includes(this.search.toLowerCase());
       });
+    },
+  },
+  methods: <any>{
+    deletePatient(id: string) {
+      this.store.deletePatient(id);
     },
   },
 };

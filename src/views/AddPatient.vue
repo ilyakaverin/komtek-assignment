@@ -78,6 +78,7 @@ import TextInput from "@/components/TextInput.vue";
 import { Patient } from "@/classes";
 import { useEntitiesStore } from "@/stores/patients";
 import { nanoid } from "nanoid";
+import { format } from "date-fns";
 import { validate } from "class-validator";
 import { useRoute } from "vue-router";
 
@@ -103,11 +104,13 @@ export default {
       name: this.current?.name,
       surname: this.current?.surname,
       secondName: this.current?.secondName,
-      birthdate: this.current?.birthdate,
+      birthdate:
+        this.current?.birthdate &&
+        format(this.current?.birthdate, "yyyy-MM-dd"),
       gender: "Male" || this.current.gender,
       snils: this.current?.snils,
-      weight: this.current?.weight,
-      height: this.current?.height,
+      weight: String(this.current?.weight),
+      height: String(this.current?.height),
       errors: [],
       id: this.$route.params.id,
     };
