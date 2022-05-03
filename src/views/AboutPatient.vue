@@ -29,6 +29,7 @@
         :time="consultation.time"
         :consultId="consultation.consultId"
         :userid="consultation.userid"
+        @custom-change='deleteConsultation'
       />
     </div>
   </div>
@@ -79,6 +80,9 @@ export default {
     createConsultation() {
       router.push({ name: "createConsultation", params: { id: this.id } });
     },
+    deleteConsultation(consultId) {
+      this.consultStore.deleteConsultation(consultId)
+    }
   },
 };
 </script>
