@@ -16,12 +16,6 @@ npm run dev
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
-
 # Комтек ТЗ Frontend
 
 ## Описание
@@ -87,3 +81,5 @@ npm run lint
 ## Контакты
 
 Telegram: @KonstantinShpilko — Константин Шпилько.
+
+[Demo](https://komtek-assignment.vercel.app/)

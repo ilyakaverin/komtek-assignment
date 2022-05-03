@@ -1,5 +1,5 @@
 <script lang="ts">
-import { calculate_age } from "@/service";
+import { calculate_age, correctBirthDate } from "@/service";
 import Button from "@/components/Button.vue";
 import TextInput from "@/components/TextInput.vue";
 import { Patient } from "@/classes";
@@ -40,8 +40,8 @@ export default {
     };
   },
   computed: <any>{
-    calc_age() {
-      return this.birthdate?.length > 0 ? calculate_age(this.birthdate) : 0;
+      calc_age() {
+      return this.birthdate?.length === 10 ? calculate_age(correctBirthDate(this.birthdate)) : 0;
     },
   },
   methods: <any>{
@@ -59,9 +59,10 @@ export default {
         this.height
       );
       validate(user).then((errors) => {
+                console.log(errors)
         if (errors.length > 0) {
           this.errors = [];
-          errors.map((error) => this.errors.push(error.property));
+          errors.map((error) => this.errors.push(error));
         } else {
           this.store.addPatient(user);
           this.$router.replace({ name: "home" });
@@ -146,25 +147,28 @@ export default {
       <TextInput
         v-model:snils="snils"
         inputName="snils"
-        :placeholder="'СНИЛС'"
+        :placeholder="'СНИЛС(Без пробелов и черточек)'"
         :errors="this.errors"
         type="text"
         :fieldProp="snils"
+        maxLength="11"
       />
       <div class="input-group">
         <TextInput
           v-model:weight="weight"
           inputName="weight"
-          :placeholder="'Вес'"
+          :placeholder="'Вес ( кг )'"
           :errors="this.errors"
           :fieldProp="weight"
+          type="number"
         />
         <TextInput
           v-model:height="height"
           inputName="height"
-          :placeholder="'Рост'"
+          :placeholder="'Рост ( см )'"
           :errors="this.errors"
           :fieldProp="height"
+          type="number"
         />
         <span class="age">Возраст: {{ calc_age }}</span>
       </div>
@@ -190,14 +194,13 @@ select {
 form .input-group {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  flex-direction: column
 }
 form .input-group input {
   width: 20%;
 }
 form .input-group span {
   flex-basis: 20%;
-  align-self: flex-end;
 }
 
 .container {

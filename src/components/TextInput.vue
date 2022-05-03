@@ -2,13 +2,17 @@
   <section>
     <span>{{ placeholder }}</span>
     <input
-      v-bind:class="[errors.includes(`${inputName}`) ? 'danger' : null]"
+      :class="[errorObject && errorObject.property !== undefined ? 'danger' : null]"
       :type="type"
       :placeholder="placeholder"
       @input="$emit(`update:${inputName}`, $event.target.value)"
       v-model="this.field"
+      :maxlength="maxLength"
     />
-    <span class="error" v-if="errors.includes(`${inputName}`)">Ошибка</span>
+    <div v-if="errorObject" class="errorContainer">
+         <span v-for="(error, index) in Object.values(this.errorObject.constraints)" :key="index" class="error" >{{error}}</span>
+    </div>
+ 
   </section>
 </template>
 
@@ -20,12 +24,20 @@ export default {
     errors: Array,
     type: String,
     fieldProp: String,
+    maxLength: String,
+
   },
   data() {
     return {
       field: this.fieldProp,
     };
   },
+  computed: {
+    errorObject() {
+      const data = this.errors.find(error => error.property === this.inputName);
+      return this.errors.find(error => error.property === this.inputName)
+    },
+  }
 };
 </script>
 
@@ -40,6 +52,10 @@ input {
   color: red;
 }
 .danger {
-  border: 1px solid red;
+  border: 2px solid red;
+}
+.errorContainer {
+  display:flex;
+  flex-direction: column
 }
 </style>
