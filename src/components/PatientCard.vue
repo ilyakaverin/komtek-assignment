@@ -1,3 +1,13 @@
+<template>
+  <section class="containerCard">
+    <h4>{{ `${name} ${secondName} ${surname}` }}</h4>
+    <span>{{ snils }}</span>
+    <Button @click="moveToAboutPage" name="О Пациенте" />
+    <Button @click="moveToEditPage" name="Редактировать" />
+    <Button @click="this.store.deletePatient(id)" name="Удалить" />
+  </section>
+</template>
+
 <script>
 import { useEntitiesStore } from "@/stores/patients";
 import router from "../router";
@@ -28,16 +38,6 @@ export default {
   },
 };
 </script>
-
-<template>
-  <section class="containerCard">
-    <h4>{{ `${name} ${secondName} ${surname}` }}</h4>
-    <span>{{ snils }}</span>
-    <Button @click="moveToAboutPage" name="О Пациенте" />
-    <Button @click="moveToEditPage" name="Редактировать" />
-    <Button @click="this.store.deletePatient(id)" name="Удалить" />
-  </section>
-</template>
 
 <style scoped>
 .containerCard {

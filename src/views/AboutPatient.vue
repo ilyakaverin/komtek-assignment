@@ -1,3 +1,39 @@
+<template>
+  <div class="usercard">
+    <div class="userinfo">
+      <span class="bold">Имя:</span>
+      <span>{{ current.name }}</span>
+      <span class="bold">Фамилия:</span>
+      <span>{{ current.surname }}</span>
+      <span class="bold">Отчество:</span>
+      <span>{{ current.secondName }}</span>
+      <span class="bold"> Возраст:</span>
+      <span>{{ age }}</span>
+      <span class="bold">Пол:</span>
+      <span>{{ gender }}</span>
+      <span class="bold">СНИЛС:</span>
+      <span>{{ current.snils }}</span>
+      <span class="bold">Вес:</span>
+      <span>{{ current.weight }} кг</span>
+      <span class="bold">Рост:</span>
+      <span>{{ current.height }} см</span>
+    </div>
+    <Button @click="createConsultation" name="Создать Консультацию" />
+
+    <h3>Консультации</h3>
+    <div class="consultations-view">
+      <ConsultationCard
+        v-for="consultation in consultStore.current"
+        :key="consultation.consultId"
+        :date="consultation.date"
+        :time="consultation.time"
+        :consultId="consultation.consultId"
+        :userid="consultation.userid"
+      />
+    </div>
+  </div>
+</template>
+
 <script>
 import { useEntitiesStore } from "@/stores/patients";
 import { useConsultationsStore } from "@/stores/consultations";
@@ -46,42 +82,6 @@ export default {
   },
 };
 </script>
-
-<template>
-  <div class="usercard">
-    <div class="userinfo">
-      <span class="bold">Имя:</span>
-      <span>{{ this.current.name }}</span>
-      <span class="bold">Фамилия:</span>
-      <span>{{ this.current.surname }}</span>
-      <span class="bold">Отчество:</span>
-      <span>{{ this.current.secondName }}</span>
-      <span class="bold"> Возраст:</span>
-      <span>{{ age }}</span>
-      <span class="bold">Пол:</span>
-      <span>{{ gender }}</span>
-      <span class="bold">СНИЛС:</span>
-      <span>{{ this.current.snils }}</span>
-      <span class="bold">Вес:</span>
-      <span>{{ this.current.weight }} кг</span>
-      <span class="bold">Рост:</span>
-      <span>{{ this.current.height }} см</span>
-    </div>
-    <Button @click="createConsultation" name="Создать Консультацию" />
-
-    <h3>Консультации</h3>
-    <div class="consultations-view">
-      <ConsultationCard
-        v-for="consultation in this.consultStore.current"
-        :key="consultation.consultId"
-        :date="consultation.date"
-        :time="consultation.time"
-        :consultId="consultation.consultId"
-        :userid="consultation.userid"
-      />
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .usercard {

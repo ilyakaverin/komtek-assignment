@@ -1,3 +1,15 @@
+<template>
+  <section class="consultationCard">
+    <span>Время: {{ date }}</span>
+    <span>Дата: {{ time }}</span>
+    <Button
+      @click="this.consultStore.deleteConsultation(consultId)"
+      name="Удалить"
+    />
+    <Button @click="moveToConsultation" name="Редактировать" />
+  </section>
+</template>
+
 <script>
 import Button from "@/components/Button.vue";
 import { useConsultationsStore } from "../stores/consultations";
@@ -28,18 +40,6 @@ export default {
   },
 };
 </script>
-
-<template>
-  <section class="consultationCard">
-    <span>Время: {{ date }}</span>
-    <span>Дата: {{ time }}</span>
-    <Button
-      @click="this.consultStore.deleteConsultation(consultId)"
-      name="Удалить"
-    />
-    <Button @click="moveToConsultation" name="Редактировать" />
-  </section>
-</template>
 
 <style>
 .consultationCard {

@@ -1,6 +1,6 @@
 export const correctBirthDate = (birthdate: string) => {
-  if(birthdate === undefined) {
-    return null
+  if (birthdate === undefined) {
+    return null;
   }
 
   const convertedDate = birthdate.split("-").map((num: string) => Number(num));
@@ -9,18 +9,14 @@ export const correctBirthDate = (birthdate: string) => {
     convertedDate[1] - 1,
     convertedDate[2]
   );
-  return dayOfBirth
-
-}
+  return dayOfBirth;
+};
 export const calculate_age = (birthdate: Date): number => {
-  
   const diff_ms = Date.now() - birthdate.getTime();
   const age_dt = new Date(diff_ms);
 
   return Math.abs(age_dt.getUTCFullYear() - 1970);
 };
-
-
 
 export const isSnilsValid = (input: string) => {
   const converted = String(input).replace(/[^0-9]+/g, "");

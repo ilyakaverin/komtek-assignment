@@ -2,17 +2,23 @@
   <section>
     <span>{{ placeholder }}</span>
     <input
-      :class="[errorObject && errorObject.property !== undefined ? 'danger' : null]"
+      :class="[
+        errorObject && errorObject.property !== undefined ? 'danger' : null,
+      ]"
       :type="type"
       :placeholder="placeholder"
       @input="$emit(`update:${inputName}`, $event.target.value)"
-      v-model="this.field"
+      v-model="field"
       :maxlength="maxLength"
     />
     <div v-if="errorObject" class="errorContainer">
-         <span v-for="(error, index) in Object.values(this.errorObject.constraints)" :key="index" class="error" >{{error}}</span>
+      <span
+        v-for="(error, index) in Object.values(errorObject.constraints)"
+        :key="index"
+        class="error"
+        >{{ error }}</span
+      >
     </div>
- 
   </section>
 </template>
 
@@ -25,7 +31,6 @@ export default {
     type: String,
     fieldProp: String,
     maxLength: String,
-
   },
   data() {
     return {
@@ -34,10 +39,12 @@ export default {
   },
   computed: {
     errorObject() {
-      const data = this.errors.find(error => error.property === this.inputName);
-      return this.errors.find(error => error.property === this.inputName)
+      const data = this.errors.find(
+        (error) => error.property === this.inputName
+      );
+      return this.errors.find((error) => error.property === this.inputName);
     },
-  }
+  },
 };
 </script>
 
@@ -55,7 +62,7 @@ input {
   border: 2px solid red;
 }
 .errorContainer {
-  display:flex;
-  flex-direction: column
+  display: flex;
+  flex-direction: column;
 }
 </style>

@@ -1,19 +1,19 @@
 <template>
   <div class="radio">
     <input
-      :disabled="this.busy.length > 0 && this.busy[0].consultId !== consultId"
+      :disabled="busy.length > 0 && busy[0].consultId !== consultId"
       type="radio"
       :id="id"
       :name="name"
       :value="value"
-      :checked="this.busy[0] && this.busy[0].consultId === consultId"
+      :checked="busy[0] && busy[0].consultId === consultId"
       @input="$emit('update:time', $event.target.value)"
     />
     <label
       :class="{
-        disabled: this.busy.length > 0 && this.busy[0].consultId !== consultId,
+        disabled: busy.length > 0 && busy[0].consultId !== consultId,
       }"
-      :for="this.id"
+      :for="id"
       >{{ value }}</label
     >
   </div>

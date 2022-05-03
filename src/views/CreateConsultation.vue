@@ -10,7 +10,7 @@
         @click="clear"
       />
       <div class="timepick">
-        <div v-if="this.date" class="innerTimePick">
+        <div v-if="date" class="innerTimePick">
           <RadioInput
             v-for="(timepick, idx) in timepicks"
             :key="idx"
@@ -20,7 +20,7 @@
             name="time"
             :value="timepick"
             :for="idx"
-            :consultId="this.consultId"
+            :consultId="consultId"
           />
         </div>
       </div>
@@ -43,8 +43,8 @@
       <span>{{ simptoms }}</span>
       <Button
         @click="action"
-        :name="this.current === undefined ? 'Записать' : 'Обновить запись'"
-        v-if="this.time && this.date"
+        :name="current === undefined ? 'Записать' : 'Обновить запись'"
+        v-if="time && date"
       />
     </div>
   </div>
