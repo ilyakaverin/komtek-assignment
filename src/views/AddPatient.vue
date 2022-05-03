@@ -115,7 +115,7 @@ export default {
   computed: <any>{
     calc_age() {
       return this.birthdate?.length === 10
-        ? calculate_age(correctBirthDate(this.birthdate))
+        ? calculate_age(correctBirthDate(this.birthdate) as Date)
         : 0;
     },
   },
