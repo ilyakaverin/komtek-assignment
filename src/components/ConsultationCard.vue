@@ -2,10 +2,7 @@
   <section class="consultationCard">
     <span>Время: {{ date }}</span>
     <span>Дата: {{ time }}</span>
-    <Button
-      @click="clicked"
-      name="Удалить"
-    />
+    <Button @click="clicked" name="Удалить" />
     <Button @click="moveToConsultation" name="Редактировать" />
   </section>
 </template>
@@ -32,8 +29,8 @@ export default {
       });
     },
     clicked() {
-      this.$emit('CustomChange', this.consultId)
-    }
+      this.$emit("CustomChange", this.consultId);
+    },
   },
 };
 </script>

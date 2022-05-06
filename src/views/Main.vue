@@ -22,10 +22,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import { useEntitiesStore } from "@/stores/patients";
 import PatientCard from "../components/PatientCard.vue";
-import { Patient } from "../classes";
 
 export default {
   name: "MainPage",
@@ -41,10 +40,10 @@ export default {
       search: "",
     };
   },
-  computed: <any>{
+  computed: {
     filteredList() {
       this.search = String(this.search);
-      return this.store.patients.filter((patient: Patient) => {
+      return this.store.patients.filter((patient) => {
         return patient
           .getSearchString()
           .toLowerCase()
@@ -52,8 +51,8 @@ export default {
       });
     },
   },
-  methods: <any>{
-    deletePatient(id: string) {
+  methods: {
+    deletePatient(id) {
       this.store.deletePatient(id);
     },
   },
