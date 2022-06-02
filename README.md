@@ -77,9 +77,3 @@ npm run build
 
 - Код проекта должен быть размещён на GitHub или аналогичном сервисе;
 - Сам проект должен быть развернут н Github Pages или аналогичном сервисе.
-
-## Контакты
-
-Telegram: @KonstantinShpilko — Константин Шпилько.
-
-[Demo](https://komtek-assignment.vercel.app/)
